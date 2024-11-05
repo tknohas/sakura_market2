@@ -4,4 +4,5 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions"
   }
+  resources :products, only: %i[show]
 end
