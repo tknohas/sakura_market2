@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type" }
+    %title SakuraMarket2
+    %meta{ content: "width=device-width,initial-scale=1", name: "viewport" }
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", type: "module"
+  %body
+    - if notice
+      .bg-green-100.border-green-500.text-green-700.px-4.py-3.rounded= notice
+    - if alert
+      .bg-red-100.border-red-500.text-red-700.px-4.py-3.rounded= alert
+    %nav.flex.items-center.justify-between.flex-wrap.bg-green-400.p-6
+      .flex.items-center.text-white.mr-6
+        = link_to 'さくらマーケット', root_path, class: 'text-xl'
+      .flex.items-center
+        = button_to 'ログアウト', destroy_user_session_path, method: :delete if current_user
+    = yield
