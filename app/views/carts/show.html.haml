@@ -12,6 +12,7 @@
             %th.px-6.py-3.text-lg{scope: "col"} 価格
             %th.px-6.py-3.text-lg{scope: "col"} 数量
             %th.px-6.py-3.text-lg{scope: "col"} 価格x数量
+            %th.px-6.py-3.text-lg{scope: "col"}
         - @cart.cart_items.each do |cart_item|
           %tbody
             %tr.border-b.border-black
@@ -20,5 +21,7 @@
               %td.px-6.py-4 #{number_to_currency(cart_item.product.price)}
               %td.px-6.py-4= cart_item.amount
               %td.px-6.py-4 #{number_to_currency(cart_item.item_total)}
+              %td.px-6.py-4= button_to '削除', cart_cart_item_path(cart_item), method: :delete, data: { turbo_confirm: '本当に削除しますか？' },
+                class: 'bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded ml-2'
   - else
     %p.text-center カートには何も入っていません。

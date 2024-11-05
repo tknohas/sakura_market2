@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   }
   resources :products, only: %i[show]
   resource :cart, only: %i[show] do
-    resources :cart_items, only: %i[create], module: :cart
+    resources :cart_items, only: %i[create destroy], module: :cart
   end
 end
