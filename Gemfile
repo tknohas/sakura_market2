@@ -19,6 +19,7 @@ gem "bootsnap", require: false
 gem "devise", "~> 4.9"
 gem "devise-i18n"
 gem "rails-i18n"
+gem "haml-rails"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
