@@ -17,6 +17,7 @@
       .flex.items-center.text-white.mr-6
         = link_to 'さくらマーケット', root_path, class: 'text-xl'
       .flex.items-center
-        = link_to 'カート', cart_path, class: 'mr-3'
-        = button_to 'ログアウト', destroy_user_session_path, method: :delete if current_user
+        - if current_user
+          = link_to 'カート', cart_path, class: 'mr-3'
+          = button_to 'ログアウト', destroy_user_session_path, method: :delete
     = yield
