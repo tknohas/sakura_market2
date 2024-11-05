@@ -1,0 +1,24 @@
+.bg-gray-100.min-h-screen.py-4
+  %h1.text-center.text-2xl.font-bold.mb-4 カート
+  = top_page
+
+  - if @cart.cart_items.any?
+    .relative.overflow-x-auto
+      %table.w-full.text-left
+        %thead
+          %tr.border-b.border-black
+            %th.px-6.py-3.text-lg{scope: "col"}
+            %th.px-6.py-3.text-lg{scope: "col"} 商品名
+            %th.px-6.py-3.text-lg{scope: "col"} 価格
+            %th.px-6.py-3.text-lg{scope: "col"} 数量
+            %th.px-6.py-3.text-lg{scope: "col"} 価格x数量
+        - @cart.cart_items.each do |cart_item|
+          %tbody
+            %tr.border-b.border-black
+              %td.ml-4= render 'shared/product_image', product: cart_item.product, size: '120x80', variant: :small
+              %td.px-6.py-4= cart_item.product.name
+              %td.px-6.py-4 #{number_to_currency(cart_item.product.price)}
+              %td.px-6.py-4= cart_item.amount
+              %td.px-6.py-4 #{number_to_currency(cart_item.item_total)}
+  - else
+    %p.text-center カートには何も入っていません。
