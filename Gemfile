@@ -14,12 +14,12 @@ gem "cssbundling-rails"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
-# gem "image_processing", "~> 1.2"
 
 gem "devise", "~> 4.9"
 gem "devise-i18n"
 gem "rails-i18n"
 gem "haml-rails"
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
