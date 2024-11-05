@@ -4,9 +4,7 @@
   - @products.each do |product|
     .border-4.flex.justify-center
       .product-item.w-100.mx-auto
-        - if product.image.attached?
-          = image_tag product.image, class: 'product-image'
-        - else
-          = image_tag 'default_image.jpg', class: 'product-image', size: '330x219'
-        %p.product-name.mt-2.font-bold.text-center= product.name
-        %p.product-name.mt-2.font-bold.text-center= number_to_currency(product.price)
+        = link_to product_path(product) do
+          = render 'shared/product_image', product: product, size: '330x219'
+          %p.product-name.mt-2.font-bold.text-center= product.name
+          %p.product-name.mt-2.font-bold.text-center= number_to_currency(product.price)

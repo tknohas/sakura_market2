@@ -1,0 +1,12 @@
+%h1.text-center.text-2xl.font-bold.my-4 商品詳細
+= link_to top_page
+
+.container.flex.justify-center.mt-4
+  .flex.justify-center.mt-4
+    .mr-4
+      = render 'shared/product_image', product: @product, size: '660x438'
+    .flex.flex-col.items-start.ms-4
+      %p.text-2xl 商品名: #{@product.name}
+      %p.text-gray-700.text-2xl.mt-2 価格: #{number_to_currency(@product.price)}
+      %p.text-gray-600.mt-2.text-2xl 商品説明:
+      %br #{@product.description}
