@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    attributes:
+      purchase:
+        delivery_date: '配達日時'

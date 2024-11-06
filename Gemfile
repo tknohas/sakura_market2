@@ -20,6 +20,7 @@ gem "devise-i18n"
 gem "rails-i18n"
 gem "haml-rails"
 gem "image_processing", "~> 1.2"
+gem "business_time"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
