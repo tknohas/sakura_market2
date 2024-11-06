@@ -23,5 +23,18 @@
               %td.px-6.py-4 #{number_to_currency(cart_item.item_total)}
               %td.px-6.py-4= button_to '削除', cart_cart_item_path(cart_item), method: :delete, data: { turbo_confirm: '本当に削除しますか？' },
                 class: 'bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded ml-2'
+      .w-80.mx-auto.bg-white.rounded-lg.shadow-md.p-8.mt-16
+        .flex.justify-between.mb-2
+          %span.font-bold 小計:
+          %span #{number_to_currency(@cart.subtotal)}(税抜)
+        .flex.justify-between.mb-2
+          %span.font-bold 送料:
+          %span #{number_to_currency(@cart.calculate_shipping_fee)}(税抜)
+        .flex.justify-between.mb-2
+          %span.font-bold 消費税:
+          %span #{number_to_currency(@cart.calculate_tax)}
+        .flex.justify-between.mb-2
+          %span.font-bold 合計金額:
+          %span #{number_to_currency(@cart.total_price)}
   - else
     %p.text-center カートには何も入っていません。
