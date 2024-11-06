@@ -78,7 +78,7 @@ RSpec.describe Cart, type: :model do
   end
 
   describe '合計金額' do
-    it '小計、送料、消費税の合計が計算される' do
+    it '小計、送料、代引き手数料、消費税の合計が計算される' do
       create(:cart_item, cart: cart, product: product1, amount: 2)
       expected_total = ((cart.total_before_tax) * Cart::TAX_RATE).floor
       expect(cart.total_price).to eq(expected_total)
