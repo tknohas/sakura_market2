@@ -88,9 +88,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_024327) do
     t.integer "delivery_fee", null: false
     t.integer "tax", null: false
     t.integer "total_price", null: false
+    t.date "delivery_date"
+    t.string "delivery_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_purchases_on_user_id", unique: true
+    t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

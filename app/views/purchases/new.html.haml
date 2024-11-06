@@ -45,6 +45,10 @@
       - current_cart.cart_items.each do |cart_item|
         = hidden_field_tag 'purchase[purchase_items_attributes][][product_id]', cart_item.product_id
         = hidden_field_tag 'purchase[purchase_items_attributes][][amount]', cart_item.amount
+      = f.label :delivery_date
+      = f.date_field :delivery_date, label: :delivery_date, class: 'bg-white rounded-lg shadow-md p-4 rounded-lg ml-2',
+        min: 3.business_days.after(Date.current), max: 14.business_days.after(Date.current)
+      = f.select :delivery_time, options_for_select(@purchase.delivery_time_options), { prompt: "配送時間を指定してください" }, { class: "bg-white rounded-lg shadow-md p-4 rounded-lg mt-4 ml-2" }
       .text-center
         = f.submit '購入確定', class: "py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer"
         = link_to 'カートに戻る', cart_path, class: 'bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg ml-4'

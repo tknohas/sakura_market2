@@ -18,6 +18,8 @@ RSpec.describe 'Purchases', type: :system do
       click_on '購入画面'
 
       expect(page).to have_css 'h1', text: '購入確認'
+      fill_in 'purchase_delivery_date', with: 3.business_days.after(Date.current)
+      find("#purchase_delivery_time").find("option[value='14:00~16:00']").select_option
       click_on '購入確定'
 
       expect(page).to have_current_path root_path
@@ -32,6 +34,8 @@ RSpec.describe 'Purchases', type: :system do
       expect(PurchaseItem.first.amount).to eq 3
       expect(PurchaseItem.second.amount).to eq 1
       expect(PurchaseItem.third.amount).to eq 5
+      expect(Purchase.last.delivery_date).to eq 3.business_days.after(Date.current)
+      expect(Purchase.last.delivery_time).to eq '14:00~16:00'
     end
   end
 end
