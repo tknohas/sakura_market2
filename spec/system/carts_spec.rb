@@ -21,8 +21,9 @@ RSpec.describe 'Products', type: :system do
       expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
       expect(page).to have_content '5,000円' # 小計
       expect(page).to have_content '600円'   # 送料
-      expect(page).to have_content '560円'   # 消費税
-      expect(page).to have_content '6,160円' # 合計金額
+      expect(page).to have_content '300円'   # 代引き手数料
+      expect(page).to have_content '590円'   # 消費税
+      expect(page).to have_content '6,490円' # 合計金額
     end
 
     it 'トップ画面へ遷移する' do
