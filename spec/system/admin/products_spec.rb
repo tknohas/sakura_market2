@@ -20,7 +20,7 @@ RSpec.describe 'Products', type: :system do
         end
 
         expect(page).to have_content '登録しました'
-        expect(page).to have_css 'h1', text: '商品一覧' # TODO: 遷移先変更予定
+        expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
         expect(page).to have_content '豆腐'
         expect(page).to have_css 'img.product-image'
         expect(Product.last.private).to eq false
@@ -63,7 +63,7 @@ RSpec.describe 'Products', type: :system do
         end
 
         expect(page).to have_content '変更しました'
-        expect(page).to have_css 'h1', text: '商品一覧' # TODO: 遷移先変更予定
+        expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
         expect(page).to have_content '豆腐'
         expect(page).to have_css 'img.product-image'
         expect(Product.last.private).to eq false
@@ -86,6 +86,26 @@ RSpec.describe 'Products', type: :system do
         expect(page).to have_content '変更に失敗しました'
         expect(page).to have_css 'h1', text: '商品編集'
       end
+    end
+  end
+
+  describe '商品一覧' do
+    let!(:product) { create(:product, name: 'にんじん', price: 1_000, description: '商品説明です。') }
+
+    it '商品情報が表示される' do
+      visit admin_root_path
+
+      expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+      expect(page).to have_content 'にんじん'
+      expect(page).to have_content '1,000円'
+      expect(page).to have_css 'img.product-image'
+    end
+
+    it '商品登録画面へ遷移する' do
+      visit admin_root_path
+      click_on '商品登録画面'
+
+      expect(page).to have_css 'h1', text: '商品登録'
     end
   end
 end

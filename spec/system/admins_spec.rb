@@ -15,6 +15,7 @@ RSpec.describe 'Admins', type: :system do
         end
 
         expect(page).to have_content 'ログインしました。'
+        expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
       end
     end
 
