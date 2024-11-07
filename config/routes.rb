@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resource :cart, only: %i[show] do
     resources :cart_items, only: %i[create destroy], module: :cart
   end
-  resources :purchases, only: %i[new create]
+  resources :purchases, only: %i[index new create show]
   resource :address, only: %i[new create edit update]
 end
