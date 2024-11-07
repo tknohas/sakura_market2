@@ -93,11 +93,11 @@ RSpec.describe 'Purchases', type: :system do
         visit purchase_path(purchase)
 
         expect(page).to have_css 'h1', text: '購入履歴詳細'
-        expect(page).to have_content '20,000円'
-        expect(page).to have_content '1,200円'
-        expect(page).to have_content '400円'
-        expect(page).to have_content '2,160円'
-        expect(page).to have_content '23,760円'
+        expect(page).to have_content '20,000円' # 小計
+        expect(page).to have_content '1,200円'  # 送料
+        expect(page).to have_content '400円'    # 代引き手数料
+        expect(page).to have_content '2,160円'  # 消費税
+        expect(page).to have_content '23,760円' # 合計
       end
 
       it '希望配達日時が表示される' do
