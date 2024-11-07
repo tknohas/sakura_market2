@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-  before_action :set_product, only: %i[edit update]
+  before_action :set_product, only: %i[show edit update]
 
   def index
     @products = Product.order(created_at: :desc)
@@ -18,6 +18,8 @@ class Admin::ProductsController < Admin::ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+
+  def show; end
 
   def edit; end
 
