@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::ApplicationController
-  before_action :set_product, only: %i[show edit update]
+  before_action :set_product, only: %i[show edit update destroy]
 
   def index
     @products = Product.order(created_at: :desc)
@@ -30,6 +30,11 @@ class Admin::ProductsController < Admin::ApplicationController
       flash.now[:alert] = '変更に失敗しました'
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @product.destroy!
+    redirect_to admin_root_path, notice: '削除しました'
   end
 
   private

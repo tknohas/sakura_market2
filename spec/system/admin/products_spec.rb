@@ -155,5 +155,16 @@ RSpec.describe 'Products', type: :system do
 
       expect(page).to have_css 'h1', text: '商品編集'
     end
+
+    it '商品を削除できる', :js do
+      visit admin_product_path(product)
+      click_on '削除'
+
+      expect {
+        expect(page.accept_confirm).to eq '本当に削除しますか？'
+        expect(page).to have_content '削除しました'
+        expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+      }.to change(Product, :count).by(-1)
+    end
   end
 end
