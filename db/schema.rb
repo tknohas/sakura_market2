@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_07_045714) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["position"], name: "index_products_on_position", unique: true
   end
 
   create_table "purchase_items", force: :cascade do |t|

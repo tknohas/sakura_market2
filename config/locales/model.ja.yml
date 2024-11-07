@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       address: 配送先
+      product: 商品
     attributes:
       purchase:
         delivery_date: 配達日時
@@ -11,3 +12,10 @@ ja:
         city: 市区町村
         street: それ以降の住所
         building: 建物名/会社名・部屋番号
+      product:
+        name: 商品名
+        price: 価格
+        description: 商品説明
+        private: 非公開にする
+        position: 表示順
+        image: 商品画像
