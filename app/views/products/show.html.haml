@@ -2,18 +2,21 @@
 = link_to top_page
 = link_to '戻る', :back, class: 'bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ml-2'
 
-.container.flex.justify-center.mt-4
-  .flex.justify-center.mt-4
-    .mr-4
-      = render 'shared/product_image', product: @product, size: '660x438'
-    .flex.flex-col.items-start.ms-4
-      %p.text-2xl 商品名: #{@product.name}
-      %p.text-gray-700.text-2xl.mt-2 価格: #{number_to_currency(@product.price)}
-      %p.text-gray-600.mt-2.text-2xl 商品説明:
-      %br #{@product.description}
-    .ml-4
-      - if current_user
-        = form_with model: CartItem.new, url: cart_cart_items_path do |f|
-          = hidden_field_tag :product_id, @product.id
-          = f.select :amount, options_for_select(1..10), { prompt: "数量を選択してください" }, { class: "border-2 border-black p-1 rounded-lg mb-2 ml-2" }
-          = f.submit 'カートに追加', class: "py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+- unless @product.private
+  .container.flex.justify-center.mt-4
+    .flex.justify-center.mt-4
+      .mr-4
+        = render 'shared/product_image', product: @product, size: '660x438'
+      .flex.flex-col.items-start.ms-4
+        %p.text-2xl 商品名: #{@product.name}
+        %p.text-gray-700.text-2xl.mt-2 価格: #{number_to_currency(@product.price)}
+        %p.text-gray-600.mt-2.text-2xl 商品説明:
+        %br #{@product.description}
+      .ml-4
+        - if current_user
+          = form_with model: CartItem.new, url: cart_cart_items_path do |f|
+            = hidden_field_tag :product_id, @product.id
+            = f.select :amount, options_for_select(1..10), { prompt: "数量を選択してください" }, { class: "border-2 border-black p-1 rounded-lg mb-2 ml-2" }
+            = f.submit 'カートに追加', class: "py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+
+%p.text-center.text-lg.mt-4 現在、この商品は公開されていません。
