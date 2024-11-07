@@ -87,6 +87,20 @@ RSpec.describe 'Products', type: :system do
         expect(page).to have_css 'h1', text: '商品編集'
       end
     end
+
+    it '商品詳細画面へ遷移する' do
+      visit edit_admin_product_path(product)
+      click_on '戻る'
+
+      expect(page).to have_css 'h1', text: '商品詳細(管理画面)'
+    end
+
+    it 'トップ画面へ遷移する' do
+      visit edit_admin_product_path(product)
+      click_on 'トップ'
+
+      expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+    end
   end
 
   describe '商品一覧' do
@@ -102,10 +116,44 @@ RSpec.describe 'Products', type: :system do
     end
 
     it '商品登録画面へ遷移する' do
-      visit admin_root_path
       click_on '商品登録画面'
 
       expect(page).to have_css 'h1', text: '商品登録'
+    end
+
+    it '商品詳細画面へ遷移する' do
+      visit admin_root_path
+      click_on 'にんじん'
+
+      expect(page).to have_css 'h1', text: '商品詳細(管理画面)'
+    end
+  end
+
+  describe '商品詳細' do
+    let!(:product) { create(:product, name: 'にんじん', price: 1_000, description: '商品説明です。') }
+
+    it '商品情報が表示される' do
+      visit admin_product_path(product)
+
+      expect(page).to have_css 'h1', text: '商品詳細'
+      expect(page).to have_content 'にんじん'
+      expect(page).to have_content '1,000円'
+      expect(page).to have_content '商品説明です。'
+      expect(page).to have_css 'img.product-image'
+    end
+
+    it 'トップ画面へ遷移する' do
+      visit admin_product_path(product)
+      click_on 'トップ'
+
+      expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+    end
+
+    it '商品編集画面へ遷移する' do
+      visit admin_product_path(product)
+      click_on '編集'
+
+      expect(page).to have_css 'h1', text: '商品編集'
     end
   end
 end

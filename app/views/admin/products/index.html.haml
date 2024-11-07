@@ -5,8 +5,7 @@
   - @products.each do |product|
     .border-4.flex.justify-center
       .product-item.w-100.mx-auto
-        -# TODO: 詳細画面実装後、admin_product_path追記
-        = link_to '#' do
+        = link_to admin_product_path(product) do
           = render 'shared/product_image', product: product, size: '330x219'
           %p.product-name.mt-2.font-bold.text-center= product.name
           %p.product-name.mt-2.font-bold.text-center= number_to_currency(product.price)
