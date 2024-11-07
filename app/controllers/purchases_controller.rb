@@ -1,4 +1,8 @@
 class PurchasesController < ApplicationController
+  def index
+    @purchases = current_user.purchases
+  end
+
   def new
     @purchase = Purchase.build(product_ids: current_cart.product_ids)
   end
@@ -12,6 +16,10 @@ class PurchasesController < ApplicationController
       flash.now[:alert] = '購入に失敗しました'
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @purchase = current_user.purchases.find(params[:id])
   end
 
   private

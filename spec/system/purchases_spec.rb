@@ -65,4 +65,74 @@ RSpec.describe 'Purchases', type: :system do
       end
     end
   end
+
+  describe '購入履歴' do
+    let!(:purchase) { create(:purchase, user:, delivery_date: "#{3.business_days.after(Date.current)}", delivery_time: '8:00~12:00') }
+    let!(:purchase_item) { create(:purchase_item, product:, purchase:) }
+    let!(:purchase_item1) { create(:purchase_item, purchase:, product: product1, amount: 1) }
+    let!(:purchase_item2) { create(:purchase_item, purchase:, product: product2, amount: 5) }
+    let!(:address) { create(:address, user:, zip_code: '145-0071', prefecture: '東京都', city: '大田区', street: '田園調布2-62') }
+
+    it '購入履歴が表示される' do
+      click_on '購入履歴'
+
+      expect(page).to have_css 'h1', text: '購入履歴'
+      texts = all('tbody tr td').map(&:text)
+      expect(texts).to eq ["#{purchase.id}", "にんじん / ピーマン / 玉ねぎ", "23,760円", "#{purchase.created_at.strftime('%Y年%m月%d日')}"]
+    end
+
+    it '購入履歴詳細画面へ遷移する' do
+      click_on '購入履歴'
+      click_on 'にんじん / ピーマン / 玉ねぎ'
+
+      expect(page).to have_css 'h1', text: '購入履歴詳細'
+    end
+
+    describe '購入履歴詳細' do
+      it '購入金額明細が表示される' do
+        visit purchase_path(purchase)
+
+        expect(page).to have_css 'h1', text: '購入履歴詳細'
+        expect(page).to have_content '20,000円'
+        expect(page).to have_content '1,200円'
+        expect(page).to have_content '400円'
+        expect(page).to have_content '2,160円'
+        expect(page).to have_content '23,760円'
+      end
+
+      it '希望配達日時が表示される' do
+        visit purchase_path(purchase)
+
+        expect(page).to have_css 'h1', text: '購入履歴詳細'
+        expect(page).to have_content '8:00~12:00'
+        expect(page).to have_content "#{3.business_days.after(Date.current).strftime('%Y年%m月%d日')}"
+      end
+
+      it '配送先住所が表示される' do
+        visit purchase_path(purchase)
+
+        expect(page).to have_css 'h1', text: '購入履歴詳細'
+        expect(page).to have_content '145-0071'
+        expect(page).to have_content '東京都'
+        expect(page).to have_content '大田区'
+        expect(page).to have_content '田園調布2-62'
+      end
+
+      it '購入した商品が表示される' do
+        visit purchase_path(purchase)
+
+        expect(page).to have_css 'h1', text: '購入履歴詳細'
+        texts = all('tbody tr').map(&:text)
+        expect(texts).to eq ["にんじん\n1,000円\n1\n1,000円", "ピーマン\n2,000円\n1\n2,000円", "玉ねぎ\n3,000円\n5\n15,000円"]
+      end
+
+      it '商品詳細画面へ遷移する' do
+        visit purchase_path(purchase)
+
+        click_on 'にんじん'
+        expect(page).to have_css 'h1', text: '商品詳細'
+        expect(page).to have_content 'にんじん'
+      end
+    end
+  end
 end

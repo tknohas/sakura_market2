@@ -19,5 +19,6 @@
       .flex.items-center
         - if current_user
           = link_to 'カート', cart_path, class: 'mr-3'
+          = link_to '購入履歴', purchases_path, class: 'mr-3'
           = button_to 'ログアウト', destroy_user_session_path, method: :delete
     = yield
