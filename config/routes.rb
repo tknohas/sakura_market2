@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root "home#index"
+
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions"
@@ -10,4 +11,8 @@ Rails.application.routes.draw do
   end
   resources :purchases, only: %i[index new create show]
   resource :address, only: %i[new create edit update]
+
+  devise_for :admins, controllers: {
+    sessions: "admins/sessions"
+  }
 end

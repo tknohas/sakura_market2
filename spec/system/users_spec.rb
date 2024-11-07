@@ -43,7 +43,7 @@ RSpec.describe Users, type: :system do
     end
 
     context 'フォームの入力値が正常' do
-      it '登録成功' do
+      it 'ログイン成功' do
         fill_in 'user_email', with: 'alice@example.com'
         fill_in 'user_password', with: '123456'
         within '.actions' do
@@ -55,7 +55,7 @@ RSpec.describe Users, type: :system do
     end
 
     context 'フォームの入力値が異常' do
-      it '登録失敗' do
+      it 'ログイン失敗' do
         fill_in 'user_email', with: ''
         fill_in 'user_password', with: ''
         within '.actions' do
