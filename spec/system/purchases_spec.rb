@@ -25,7 +25,7 @@ RSpec.describe 'Purchases', type: :system do
         expect(page).to have_content '東京都'
         expect(page).to have_content '大田区'
         expect(page).to have_content '田園調布2-62'
-        
+
         fill_in 'purchase_delivery_date', with: 3.business_days.after(Date.current)
         find("#purchase_delivery_time").find("option[value='14:00~16:00']").select_option
         click_on '購入確定'
@@ -44,6 +44,13 @@ RSpec.describe 'Purchases', type: :system do
         expect(PurchaseItem.third.amount).to eq 5
         expect(Purchase.last.delivery_date).to eq 3.business_days.after(Date.current)
         expect(Purchase.last.delivery_time).to eq '14:00~16:00'
+      end
+
+      it '住所編集画面へ遷移する' do
+        visit new_purchase_path
+
+        click_on '住所を編集'
+        expect(page).to have_css 'h1', text: '住所編集'
       end
     end
 
