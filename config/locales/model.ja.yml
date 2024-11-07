@@ -1,5 +1,13 @@
 ja:
   activerecord:
+    models:
+      address: 配送先
     attributes:
       purchase:
-        delivery_date: '配達日時'
+        delivery_date: 配達日時
+      address:
+        zip_code: 郵便番号
+        prefecture: 都道府県
+        city: 市区町村
+        street: それ以降の住所
+        building: 建物名/会社名・部屋番号

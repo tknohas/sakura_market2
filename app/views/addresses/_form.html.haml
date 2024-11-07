@@ -1,0 +1,22 @@
+.mb-4
+  = top_page
+.max-w-md.mx-auto.bg-white.p-8.border.border-gray-300.rounded-lg.shadow-md
+  = form_with model: address, url:, html: { class: "space-y-6" } do |f|
+    = render 'users/shared/error_messages', resource: address
+    .field
+      = f.label :zip_code, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :zip_code, autofocus: true, autocomplete: "zip_code", class: "mt-1 block w-full rounded-md border-black-500 shadow-sm"
+    .field
+      = f.label :prefecture, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :prefecture, autocomplete: "prefecture", class: "mt-1 block w-full rounded-md border-black-500 shadow-sm"
+    .field
+      = f.label :city, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :city, autocomplete: "city", class: "mt-1 block w-full rounded-md border-black-500 shadow-sm"
+    .field
+      = f.label :street, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :street, autocomplete: "street", class: "mt-1 block w-full rounded-md border-black-500 shadow-sm"
+    .field
+      = f.label :building, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :building, autocomplete: "building", class: "mt-1 block w-full rounded-md border-black-500 shadow-sm"
+    .actions
+      = f.submit "登録する", class: "w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
