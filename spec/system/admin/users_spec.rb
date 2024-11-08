@@ -12,7 +12,7 @@ RSpec.describe 'Users', type: :system do
 
       expect(page).to have_css 'h1', text: 'ユーザー一覧'
       texts = all('tbody tr td').map(&:text)
-      expect(texts).to eq %W(#{user.id} Alice alice@example.com 2024年11月08日 編集)
+      expect(texts).to eq %W(#{user.id} Alice alice@example.com 2024年11月08日 編集 削除)
     end
 
     it '編集画面へ遷移する' do
@@ -27,6 +27,17 @@ RSpec.describe 'Users', type: :system do
       click_on 'トップ'
 
       expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+    end
+
+    it 'ユーザーを削除できる', :js do
+      click_on 'ユーザー管理'
+      click_on '削除'
+
+      expect{
+        expect(page.accept_confirm).to eq '本当に削除しますか？'
+        expect(page).to have_content '削除しました'
+        expect(page).to have_css 'h1', text: 'ユーザー一覧'
+      }.to change(User, :count).by(-1)
     end
   end
 
@@ -44,7 +55,7 @@ RSpec.describe 'Users', type: :system do
         expect(page).to have_content '変更しました'
         expect(page).to have_css 'h1', text: 'ユーザー一覧'
         texts = all('tbody tr td').map(&:text)
-        expect(texts).to eq %W(#{user.id} Bob bob@example.com 2024年11月08日)
+        expect(texts).to eq %W(#{user.id} Bob bob@example.com 2024年11月08日 編集 削除)
       end
     end
 

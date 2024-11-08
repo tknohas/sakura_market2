@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'products#index', as: :root
     resources :products, only: %i[index new create show edit update destroy]
-    resources :users, only: %i[index edit update]
+    resources :users, only: %i[index edit update destroy]
   end
 end
