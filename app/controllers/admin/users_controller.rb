@@ -1,5 +1,5 @@
 class Admin::UsersController < Admin::ApplicationController
-  before_action :set_user, only: %i[edit update]
+  before_action :set_user, only: %i[edit update destroy]
 
   def index
     @users = User.order(:id)
@@ -13,6 +13,11 @@ class Admin::UsersController < Admin::ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.destroy!
+    redirect_to admin_users_path, notice: '削除しました'
   end
 
   private
