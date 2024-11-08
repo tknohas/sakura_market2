@@ -68,6 +68,48 @@ RSpec.describe 'Products', type: :system do
       expect(page).to have_content '6,490円' # 合計金額
     end
 
+    it 'ログイン後もカートの商品が引き継がれる' do
+      visit product_path(product)
+      find("#cart_item_amount").find("option[value='5']").select_option
+      click_on 'カートに追加'
+
+      expect(page).to have_content 'カートに商品を追加しました'
+
+      user_login(user)
+
+      click_on 'カート'
+      expect(page).to have_css 'img.product-image'
+      texts = all('tbody tr').map(&:text)
+      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
+      expect(page).to have_content '5,000円' # 小計
+      expect(page).to have_content '600円'   # 送料
+      expect(page).to have_content '300円'   # 代引き手数料
+      expect(page).to have_content '590円'   # 消費税
+      expect(page).to have_content '6,490円' # 合計金額
+    end
+
+    context 'すでにカートに商品がある場合' do
+      let!(:cart_item) { create(:cart_item, product:, cart:, amount: 1) }
+
+      it 'カートの商品と結合される' do
+        visit product_path(product)
+        find("#cart_item_amount").find("option[value='5']").select_option
+        click_on 'カートに追加'
+
+        user_login(user)
+
+        click_on 'カート'
+        expect(page).to have_css 'img.product-image'
+        texts = all('tbody tr').map(&:text)
+        expect(texts).to eq ["にんじん 1,000円 6 6,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
+        expect(page).to have_content '6,000円' # 小計
+        expect(page).to have_content '1,200円'   # 送料
+        expect(page).to have_content '300円'   # 代引き手数料
+        expect(page).to have_content '750円'   # 消費税
+        expect(page).to have_content '8,250円' # 合計金額
+      end
+    end
+
     it 'トップ画面へ遷移する' do
       visit cart_path
       click_on 'トップ'

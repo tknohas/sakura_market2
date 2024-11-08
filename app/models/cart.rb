@@ -45,4 +45,21 @@ class Cart < ApplicationRecord
   def calculate_tax
     (total_price - (total_before_tax)).floor
   end
+
+  def merge_guest_cart_items(session_cart_id)
+    guest_cart = Cart.find_by(id: session_cart_id)
+    return unless guest_cart
+
+    transaction do
+      guest_cart.cart_items.each do |guest_item|
+        exiting_item = cart_items.find_by(product_id: guest_item.product_id)
+        if exiting_item
+          exiting_item.update(amount: exiting_item.amount + guest_item.amount)
+        else
+          cart_items.create(product_id: guest_item.product_id, amount: guest_item.amount)
+        end
+      end
+      guest_cart.destroy!
+    end
+  end
 end
