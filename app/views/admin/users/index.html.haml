@@ -5,14 +5,14 @@
   %table.w-full.text-left
     %thead
       %tr.border-b.border-black
+        %th.px-6.py-3.text-lg{scope: "col"} ID
         %th.px-6.py-3.text-lg{scope: "col"} 氏名
         %th.px-6.py-3.text-lg{scope: "col"} メールアドレス
         %th.px-6.py-3.text-lg{scope: "col"} 登録日時
     - @users.each do |user|
       %tbody
         %tr.border-b.border-black
-          %td.px-6.py-4
-            = link_to user.name, '#',
-              class: 'text-blue-600 dark:text-blue-500 hover:underline'
+          %td.px-6.py-4= user.id
+          %td.px-6.py-4= user.name
           %td.px-6.py-4= user.email
           %td.px-6.py-4= user.created_at.strftime('%Y年%m月%d日')
