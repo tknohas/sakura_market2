@@ -2,6 +2,6 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @products = Product.order(:created_at)
+    @products = Product.order_by_position
   end
 end
