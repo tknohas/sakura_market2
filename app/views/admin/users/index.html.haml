@@ -9,6 +9,7 @@
         %th.px-6.py-3.text-lg{scope: "col"} 氏名
         %th.px-6.py-3.text-lg{scope: "col"} メールアドレス
         %th.px-6.py-3.text-lg{scope: "col"} 登録日時
+        %th.px-6.py-3.text-lg{scope: "col"}
     - @users.each do |user|
       %tbody
         %tr.border-b.border-black
@@ -16,3 +17,4 @@
           %td.px-6.py-4= user.name
           %td.px-6.py-4= user.email
           %td.px-6.py-4= user.created_at.strftime('%Y年%m月%d日')
+          %td.px-6.py-4= link_to '編集', edit_admin_user_path(user), class: 'bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'
