@@ -40,6 +40,10 @@
           %span.font-bold 合計金額:
           %span #{number_to_currency(@cart.total_price)}
       %p.text-center.mt-4
-        = link_to '購入画面', new_purchase_path, class: "w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+        - purchase_confirm_button = "w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+        - if current_user
+          = link_to '購入画面', new_purchase_path, class: purchase_confirm_button
+        - else
+          = link_to 'ログインして購入する', new_purchase_path, class: purchase_confirm_button
   - else
     %p.text-center カートには何も入っていません。
