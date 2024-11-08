@@ -105,7 +105,7 @@ RSpec.describe 'Products', type: :system do
   end
 
   describe '商品一覧' do
-    let!(:product) { create(:product, name: 'にんじん', price: 1_000, description: '商品説明です。') }
+    let!(:product) { create(:product, name: 'にんじん', price: 1_000, position: 1) }
 
     it '商品情報が表示される' do
       visit admin_root_path
@@ -127,6 +127,37 @@ RSpec.describe 'Products', type: :system do
       click_on 'にんじん'
 
       expect(page).to have_css 'h1', text: '商品詳細(管理画面)'
+    end
+
+    describe '商品の表示順' do
+      let!(:product1) { create(:product, name: 'ピーマン', price: 2_000, position: 2) }
+      let!(:product2) { create(:product, name: '玉ねぎ', price: 3_000, position: 3) }
+
+      it '表示順を設定できる' do
+        visit edit_admin_product_path(product1)
+
+        fill_in 'product_position', with: 1
+        click_on '変更する'
+
+        expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+        sorted_products = all('div a .product-name').map(&:text)
+        expect(sorted_products).to eq %w(ピーマン にんじん 玉ねぎ)
+
+        visit edit_admin_product_path(product2)
+
+        fill_in 'product_position', with: 1
+        click_on '変更する'
+
+        expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
+        sorted_products = all('div a .product-name').map(&:text)
+        expect(sorted_products).to eq %w(玉ねぎ ピーマン にんじん)
+
+        visit root_path
+
+        expect(page).to have_css 'h1', text: '商品一覧'
+        sorted_products = all('div a .product-name').map(&:text)
+        expect(sorted_products).to eq %w(玉ねぎ ピーマン にんじん)
+      end
     end
   end
 
