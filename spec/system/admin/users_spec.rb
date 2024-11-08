@@ -1,6 +1,6 @@
 RSpec.describe 'Users', type: :system do
   let(:admin) { create(:admin) }
-  let!(:user) { create(:user, name: 'Alice', email: 'alice@example.com', password: '123456') }
+  let!(:user) { create(:user, name: 'Alice', email: 'alice@example.com', password: '123456', created_at: '2024-11-08') }
 
   before do
     admin_login(admin)
@@ -12,7 +12,7 @@ RSpec.describe 'Users', type: :system do
 
       expect(page).to have_css 'h1', text: 'ユーザー一覧'
       texts = all('tbody tr td').map(&:text)
-      expect(texts).to eq %W(#{user.id} Alice alice@example.com #{user.created_at.strftime('%Y年%m月%d日')})
+      expect(texts).to eq %W(#{user.id} Alice alice@example.com 2024年11月08日)
     end
   end
 end
