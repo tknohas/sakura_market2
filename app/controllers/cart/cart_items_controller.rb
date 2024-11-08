@@ -1,4 +1,6 @@
 class Cart::CartItemsController < ApplicationController
+  skip_before_action :authenticate_user!
+  
   def create
     product = Product.find(params[:product_id])
     amount = params[:cart_item][:amount].to_i
