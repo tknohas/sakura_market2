@@ -22,7 +22,7 @@ RSpec.describe 'Products', type: :system do
         expect(page).to have_content '登録しました'
         expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
         expect(page).to have_content '豆腐'
-        expect(page).to have_css 'img.attached_product-image'
+        expect(page).to have_css 'img.attached-product-image'
         expect(Product.last.private).to eq false
         expect(Product.last.position).to eq 1
       end
@@ -65,7 +65,7 @@ RSpec.describe 'Products', type: :system do
         expect(page).to have_content '変更しました'
         expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
         expect(page).to have_content '豆腐'
-        expect(page).to have_css 'img.attached_product-image'
+        expect(page).to have_css 'img.attached-product-image'
         expect(Product.last.private).to eq false
         expect(Product.last.position).to eq 2
       end
