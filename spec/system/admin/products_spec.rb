@@ -1,11 +1,10 @@
 RSpec.describe 'Products', type: :system do
-  let(:admin) { create(:admin, email: 'admin@example.com', password: '123456') }
+  let(:admin) { create(:admin) }
 
   before do
     admin_login(admin)
   end
 
-  # TODO: 画像のテスト修正
   describe '商品登録' do
     context 'フォームの入力値が正常' do
       it '登録成功' do
@@ -23,7 +22,7 @@ RSpec.describe 'Products', type: :system do
         expect(page).to have_content '登録しました'
         expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
         expect(page).to have_content '豆腐'
-        expect(page).to have_css 'img.product-image'
+        expect(page).to have_css 'img.attached-product-image'
         expect(Product.last.private).to eq false
         expect(Product.last.position).to eq 1
       end
@@ -66,7 +65,7 @@ RSpec.describe 'Products', type: :system do
         expect(page).to have_content '変更しました'
         expect(page).to have_css 'h1', text: '商品一覧(管理画面)'
         expect(page).to have_content '豆腐'
-        expect(page).to have_css 'img.product-image'
+        expect(page).to have_css 'img.attached-product-image'
         expect(Product.last.private).to eq false
         expect(Product.last.position).to eq 2
       end

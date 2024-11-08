@@ -1,6 +1,6 @@
 RSpec.describe 'Admins', type: :system do
   describe 'ログイン' do
-    let!(:admin) { create(:admin, email: 'admin@example.com', password: '123456') }
+    let(:admin) { create(:admin) }
 
     before do
       visit new_admin_session_path
@@ -8,8 +8,8 @@ RSpec.describe 'Admins', type: :system do
 
     context 'フォームの入力値が正常' do
       it 'ログイン成功' do
-        fill_in 'admin_email', with: 'admin@example.com'
-        fill_in 'admin_password', with: '123456'
+        fill_in 'admin_email', with: admin.email
+        fill_in 'admin_password', with: admin.password
         within '.actions' do
           click_button 'ログイン'
         end
