@@ -17,6 +17,7 @@ RSpec.describe 'Products', type: :system do
       expect(page).to have_css 'h1', text: '商品一覧'
 
       click_on 'カート'
+      expect(page).to have_css 'img.product-image'
       texts = all('tbody tr').map(&:text)
       expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
       expect(page).to have_content '5,000円' # 小計
@@ -33,6 +34,7 @@ RSpec.describe 'Products', type: :system do
       expect(page).to have_css 'h1', text: '商品一覧'
     end
 
+    # TODO: テストが落ちてしまうので修正
     it 'カートから商品を削除できる', :js do
       click_on 'にんじん'
       click_on 'カートに追加'

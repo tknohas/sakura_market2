@@ -5,6 +5,7 @@ RSpec.describe 'Products', type: :system do
     admin_login(admin)
   end
 
+  # TODO: 画像のテスト修正
   describe '商品登録' do
     context 'フォームの入力値が正常' do
       it '登録成功' do
