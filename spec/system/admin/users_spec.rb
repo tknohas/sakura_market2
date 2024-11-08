@@ -8,11 +8,11 @@ RSpec.describe 'Users', type: :system do
 
   describe 'ユーザー一覧' do
     it 'ユーザー情報が表示される' do
-      visit admin_users_path
+      click_on 'ユーザー管理'
 
       expect(page).to have_css 'h1', text: 'ユーザー一覧'
       texts = all('tbody tr td').map(&:text)
-      expect(texts).to eq %W(Alice alice@example.com #{user.created_at.strftime('%Y年%m月%d日')})
+      expect(texts).to eq %W(#{user.id} Alice alice@example.com #{user.created_at.strftime('%Y年%m月%d日')})
     end
   end
 end
