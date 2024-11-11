@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
   def index
-    @purchases = current_user.purchases
+    @purchases = current_user.purchases.order(created_at: :desc)
   end
 
   def new
