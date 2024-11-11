@@ -39,11 +39,11 @@ class Cart < ApplicationRecord
   end
 
   def total_price
-    ((total_before_tax) * TAX_RATE).floor
+    (total_before_tax * TAX_RATE).floor
   end
 
   def calculate_tax
-    (total_price - (total_before_tax)).floor
+    (total_price - total_before_tax).floor
   end
 
   def merge_guest_cart_items(session_cart_id)

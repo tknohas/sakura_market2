@@ -19,7 +19,7 @@ RSpec.describe 'Products', type: :system do
       click_on 'カート'
       expect(page).to have_css 'img.product-image'
       texts = all('tbody tr').map(&:text)
-      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
+      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] # NOTE: "商品名 単価 数量 単価x数量"
       expect(page).to have_content '5,000円' # 小計
       expect(page).to have_content '600円'   # 送料
       expect(page).to have_content '300円'   # 代引き手数料
@@ -60,7 +60,7 @@ RSpec.describe 'Products', type: :system do
       click_on 'カート'
       expect(page).to have_css 'img.product-image'
       texts = all('tbody tr').map(&:text)
-      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
+      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] # NOTE: "商品名 単価 数量 単価x数量"
       expect(page).to have_content '5,000円' # 小計
       expect(page).to have_content '600円'   # 送料
       expect(page).to have_content '300円'   # 代引き手数料
@@ -80,7 +80,7 @@ RSpec.describe 'Products', type: :system do
       click_on 'カート'
       expect(page).to have_css 'img.product-image'
       texts = all('tbody tr').map(&:text)
-      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
+      expect(texts).to eq ["にんじん 1,000円 5 5,000円\n削除"] # NOTE: "商品名 単価 数量 単価x数量"
       expect(page).to have_content '5,000円' # 小計
       expect(page).to have_content '600円'   # 送料
       expect(page).to have_content '300円'   # 代引き手数料
@@ -101,9 +101,9 @@ RSpec.describe 'Products', type: :system do
         click_on 'カート'
         expect(page).to have_css 'img.product-image'
         texts = all('tbody tr').map(&:text)
-        expect(texts).to eq ["にんじん 1,000円 6 6,000円\n削除"] #NOTE: "商品名 単価 数量 単価x数量"
+        expect(texts).to eq ["にんじん 1,000円 6 6,000円\n削除"] # NOTE: "商品名 単価 数量 単価x数量"
         expect(page).to have_content '6,000円' # 小計
-        expect(page).to have_content '1,200円'   # 送料
+        expect(page).to have_content '1,200円' # 送料
         expect(page).to have_content '300円'   # 代引き手数料
         expect(page).to have_content '750円'   # 消費税
         expect(page).to have_content '8,250円' # 合計金額

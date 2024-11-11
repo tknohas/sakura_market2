@@ -16,7 +16,7 @@ class Purchase < ApplicationRecord
       shipping_fee: user.cart.calculate_shipping_fee,
       delivery_fee: user.cart.cash_on_delivery_fee,
       tax: user.cart.calculate_tax,
-      total_price: user.cart.total_price,
+      total_price: user.cart.total_price
     )
   end
 
