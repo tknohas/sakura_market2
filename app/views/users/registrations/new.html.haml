@@ -1,4 +1,5 @@
 %h1.text-center.text-2xl.font-bold.my-4 新規登録
+
 .max-w-md.mx-auto.bg-white.p-8.border.border-gray-300.rounded-lg.shadow-md
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f|
     = render "users/shared/error_messages", resource: resource
@@ -19,5 +20,6 @@
       = f.password_field :password_confirmation, autocomplete: "new-password", class: "mt-1 block w-full rounded-md border-black-500 shadow-sm"
     .actions
       = f.submit "新規登録", class: "w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+
 .text-center.mt-6
   = render "users/shared/links"
