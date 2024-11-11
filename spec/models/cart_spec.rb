@@ -80,7 +80,7 @@ RSpec.describe Cart, type: :model do
   describe '合計金額' do
     it '小計、送料、代引き手数料、消費税の合計が計算される' do
       create(:cart_item, cart: cart, product: product1, amount: 2)
-      expected_total = ((cart.total_before_tax) * Cart::TAX_RATE).floor
+      expected_total = (cart.total_before_tax * Cart::TAX_RATE).floor
       expect(cart.total_price).to eq(expected_total)
     end
   end
@@ -88,7 +88,7 @@ RSpec.describe Cart, type: :model do
   describe '消費税' do
     it '消費税が計算される' do
       create(:cart_item, cart: cart, product: product1, amount: 2)
-      expected_tax = (cart.total_before_tax * Cart::TAX_RATE - cart.total_before_tax).floor
+      expected_tax = ((cart.total_before_tax * Cart::TAX_RATE).floor - cart.total_before_tax)
       expect(cart.calculate_tax).to eq(expected_tax)
     end
   end

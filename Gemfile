@@ -29,6 +29,7 @@ end
 
 group :development do
   gem "web-console"
+  gem "sgcop", github: "SonicGarden/sgcop"
 end
 
 group :test do
