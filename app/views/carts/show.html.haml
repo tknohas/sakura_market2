@@ -2,7 +2,7 @@
   %h1.text-center.text-2xl.font-bold.mb-4 カート
   = top_page
 
-  - if @cart.cart_items.any?
+  - if current_cart.cart_items.any?
     .relative
       %table.w-full.text-left
         %thead
@@ -13,7 +13,7 @@
             %th.px-6.py-3.text-lg{scope: "col"} 数量
             %th.px-6.py-3.text-lg{scope: "col"} 価格x数量
             %th.px-6.py-3.text-lg{scope: "col"}
-        - @cart.cart_items.preload(:product, product: :image_attachment).order_by_created_at.each do |cart_item|
+        - current_cart.cart_items.preload(:product, product: :image_attachment).order_by_created_at.each do |cart_item|
           %tbody
             %tr.border-b.border-black
               %td.ml-4= render 'shared/product_image', product: cart_item.product, size: '120x80', variant: :small
@@ -27,19 +27,19 @@
       .w-80.mx-auto.bg-white.rounded-lg.shadow-md.p-8.mt-16
         .flex.justify-between.mb-2
           %span.font-bold 小計:
-          %span #{number_to_currency(@cart.subtotal)}(税抜)
+          %span #{number_to_currency(current_cart.subtotal)}(税抜)
         .flex.justify-between.mb-2
           %span.font-bold 送料:
-          %span #{number_to_currency(@cart.calculate_shipping_fee)}(税抜)
+          %span #{number_to_currency(current_cart.calculate_shipping_fee)}(税抜)
         .flex.justify-between.mb-2
           %span.font-bold 代引き手数料:
-          %span #{number_to_currency(@cart.cash_on_delivery_fee)}(税抜)
+          %span #{number_to_currency(current_cart.cash_on_delivery_fee)}(税抜)
         .flex.justify-between.mb-2
           %span.font-bold 消費税:
-          %span #{number_to_currency(@cart.calculate_tax)}
+          %span #{number_to_currency(current_cart.calculate_tax)}
         .flex.justify-between.mb-2
           %span.font-bold 合計金額:
-          %span #{number_to_currency(@cart.total_price)}
+          %span #{number_to_currency(current_cart.total_price)}
 
       %p.text-center.mt-4
         - purchase_confirm_button = "w-full py-2 px-4 border rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
