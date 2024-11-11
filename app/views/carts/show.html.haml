@@ -13,7 +13,7 @@
             %th.px-6.py-3.text-lg{scope: "col"} 数量
             %th.px-6.py-3.text-lg{scope: "col"} 価格x数量
             %th.px-6.py-3.text-lg{scope: "col"}
-        - @cart.cart_items.order_by_created_at.each do |cart_item|
+        - @cart.cart_items.preload(:product, product: :image_attachment).order_by_created_at.each do |cart_item|
           %tbody
             %tr.border-b.border-black
               %td.ml-4= render 'shared/product_image', product: cart_item.product, size: '120x80', variant: :small
