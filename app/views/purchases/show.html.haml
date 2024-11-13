@@ -1,0 +1,60 @@
+.bg-gray-100.min-h-screen.py-4
+  .container.mx-auto
+    %h1.text-center.text-2xl.font-bold.mb-4 購入履歴詳細
+    = top_page
+    = link_to '戻る', purchases_path, class: 'bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l ml-2'
+
+    .bg-white.rounded-lg.shadow-md.p-6.mt-8.mb-8
+      .flex.justify-between.mb-2
+        %span 小計:
+        %span #{number_to_currency(@purchase.subtotal)}(税抜)
+      .flex.justify-between.mb-2
+        %span 送料:
+        %span #{number_to_currency(@purchase.shipping_fee)}(税抜)
+      .flex.justify-between.mb-2
+        %span 代引き手数料:
+        %span #{number_to_currency(@purchase.delivery_fee)}(税抜)
+      .flex.justify-between.mb-2
+        %span 消費税:
+        %span #{number_to_currency(@purchase.tax)}
+      .flex.justify-between.font-bold.text-lg
+        %span 合計:
+        %span #{number_to_currency(@purchase.total_price)}
+
+    .bg-white.rounded-lg.shadow-md.p-6.my-8
+      %h2.text-xl.font-semibold.mb-4 希望配達日時
+      %p= @purchase.delivery_date.strftime('%Y年%m月%d日') if @purchase.delivery_date.present?
+      %p= @purchase.delivery_time if @purchase.delivery_time.present?
+
+    .bg-white.rounded-lg.shadow-md.p-6.my-8
+      %h2.text-xl.font-semibold.mb-4 配送先住所
+      %p 〒#{@purchase.user.address.zip_code}
+      %p
+        = @purchase.user.address.prefecture
+        = @purchase.user.address.city
+        = @purchase.user.address.street
+      %p= @purchase.user.address.building
+      %p #{@purchase.user.name} 様
+
+    .bg-white.rounded-lg.shadow-md.overflow-hidden.mb-8
+      %table.w-full
+        %thead.bg-gray-200
+          %tr
+            %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider 商品
+            %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider 価格
+            %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider 数量
+            %th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.uppercase.tracking-wider 価格x数量
+        %tbody.divide-y.divide-gray-200
+          - @purchase.purchase_items.preload(:product, product: :image_attachment).order(:created_at).each do |purchase_item|
+            %tr
+              %td.px-6.py-4.whitespace-nowrap
+                .flex.items-center
+                  = render 'shared/product_image', product: purchase_item.product, size: '120x80', variant: :small
+                  .ml-4
+                    .text-sm.font-medium.text-gray-900= link_to purchase_item.product.name, product_path(purchase_item.product), class: 'text-blue-500 hover:underline'
+              %td.px-6.py-4.whitespace-nowrap
+                .text-sm.text-gray-900 #{number_to_currency(purchase_item.product.price)}
+              %td.px-6.py-4.whitespace-nowrap
+                .text-sm.text-gray-900= purchase_item.amount
+              %td.px-6.py-4.whitespace-nowrap
+                .text-sm.text-gray-900 #{number_to_currency(purchase_item.item_total)}

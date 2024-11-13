@@ -1,0 +1,11 @@
+%h1.text-center.text-2xl.font-bold.my-4 商品一覧(管理画面)
+= link_to '商品登録画面', new_admin_product_path, class: 'ml-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'
+
+.mx-8.grid.grid-cols-3.gap-4.mb-4.mt-4
+  - @products.each do |product|
+    .border-4.flex.justify-center
+      .product-item.w-100.mx-auto
+        = link_to admin_product_path(product) do
+          = render 'shared/product_image', product: product, size: '330x219', variant: :middle
+          %p.product-name.mt-2.font-bold.text-center= product.name
+          %p.mt-2.font-bold.text-center= number_to_currency(product.price)
